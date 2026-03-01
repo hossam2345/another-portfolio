@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>☻</title>
+  <style>
+    body {
+font-family:  'Arial Narrow Bold', sans-serif;
+      padding: 20px;
+      direction: ltr;
+      background: #e0e5ec;
+    }
+    textarea {
+      width: 100%;
+      height: 100px;
+      background-color: #e0e5ec;
+      box-shadow:inset 4px 4px 8px #999,inset -4px -4px 8px #fff;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      resize: none;
+    }
+    #note {
+      background: #e0e5ec;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      position: relative;
+      box-shadow: 10px 10px 30px #999, 10px 10px 30px #fff;
+    border-radius: 7px;
+    }
+    .note-buttons {
+      margin-top: 10px;
+
+    }
+    button {
+      margin-left: 5px;
+      background-color: #e0e5ec;
+      box-shadow: 6px 6px 10px #999, 6px 6px 10px #fff;
+      border-radius: 7px;
+      border: none;
+      outline: none;
+      width: fit-content;
+      height: 30px;
+      cursor: pointer;
+      }
+    button:active{
+      box-shadow:inset 4px 4px 8px #999,inset 4px 4px 8px #fff;
+    }
+    .ds{
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    #searchinp{
+      margin-top: 20px;
+      width: 100%;
+      height: 30px;
+      background-color: #e0e5ec;
+      box-shadow:inset 4px 4px 8px #999,inset -4px -4px 8px #fff;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+  <h2>notes!</h2>
+  <textarea id="noteInput" placeholder="type what you want" ></textarea>
+  <br>
+  <button onclick="add()">Add</button>
+  <button onclick="deleteAll()">deleteall</button>
+<div class="ds">
+    <input type="text" id="searchinp" placeholder="search">
+    <button onclick="searchinp.value='' ; displayNotes()">Clear</button>
+</div>
+
+  <h3>saved notes↓</h3>
+
+  <div id="notesList"></div>
+
+  <script>
+window.onload = function(){
+  displayNotes()
+}
+
+function add(){
+  let note = document.getElementById("noteInput").value.trim()
+  if(note){
+    let notes = JSON.parse(localStorage.getItem("notes")) || []
+    notes.push(note)
+    localStorage.setItem("notes", JSON.stringify(notes))
+document.getElementById("noteInput").value = ""
+displayNotes()
+  }
+}
+function deleted(index){
+  let notes = JSON.parse(localStorage.getItem("notes")) || []
+  notes.splice(index, 1)
+  localStorage.setItem("notes", JSON.stringify(notes))
+  displayNotes()
+}
+function deleteAll(){
+  if(confirm("are you sure?")){
+    localStorage.removeItem("notes")
+    displayNotes()
+  }
+}
+function edit(index){
+let notes = JSON.parse(localStorage.getItem("notes")) || []
+let newn = prompt("edit you stupidass", notes[index])
+if(newn !== null && newn.trim() !== ""){
+  notes[index] = newn.trim()
+}
+localStorage.setItem("notes", JSON.stringify(notes))
+displayNotes()
+}
+function displayNotes(){
+  let notes = JSON.parse(localStorage.getItem("notes")) || []
+  let list = document.getElementById("notesList")
+  list.innerHTML = ""
+  notes.forEach((note, index)=>
+list.innerHTML += `<div id="note">
+  ${note}
+  <div class="note-buttons">
+    <button onclick="deleted(${index})">delete</button>
+    <button onclick="edit(${index})">edit</button>
+    </div>
+    </div>
+  `
+)
+}
+const searchinp = document.getElementById("searchinp");
+searchinp.addEventListener("input", function(){
+  let val = this.value.toLowerCase();
+  let notes = document.querySelectorAll("#note");
+  notes.forEach(note=>{
+    let text = note.textContent.toLowerCase();
+    if(text.includes(val)){
+      note.style.display = "block";
+    } else {
+      note.style.display = "none";
+    }
+  });
+});
+
+  </script>
+</body>
+</html>

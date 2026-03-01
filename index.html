@@ -17,6 +17,7 @@
 <body>
     <header>
         <h2>م/ حسام كرم</h2>
+        <button onclick="openList()" id="openList"><i class="fas fa-bars"></i><br></button>
         <nav>
             <a href="#who">من انا؟</a>
             <a href="#skills">المهارات</a>
@@ -24,6 +25,7 @@
             <a href="#contact">تواصل معي</a>
 
         </nav>
+
     </header>
     <section id="hero">
         <div id="tsparticles"></div>
@@ -175,7 +177,7 @@
         <h1>المشاريع</h1>
         <div class="grids">
             <div class="project" data-animate="left">
-                <img src="Document - Brave 28_12_2025 04_48_41 م.png" alt="">
+                <img src="Document - Brave 28_12_2025 04_48_41 م.png" alt="" data-img="quest">
                 <div class="about">
                     <h2>موقع اسئلة</h2>
                     <p>موقع اسئلة عامة هو موقع بسيط جدا يمكنك من خلاله اختبار معلوماتك العامة من خلال مجموعة من الاسئلة
@@ -187,7 +189,7 @@
                 </div>
             </div>
             <div class="project" data-animate="right">
-                <img src="Memory Game - Brave 28_12_2025 04_45_19 م.png" alt="">
+                <img src="Memory Game - Brave 28_12_2025 04_45_19 م.png" alt="" data-img="memory">
                 <div class="about">
                     <h2>موقع لعبة الذاكرة</h2>
                     <p>موقع لعبة الذاكرة هو موقع بسيط جدا يمكنك من خلاله لعب لعبة الذاكرة الشهيرة,اللعبة تعتمد على تذكر
@@ -200,7 +202,7 @@
 
             </div>
             <div class="project" data-animate="left">
-                <img src="☻ - Brave 28_12_2025 04_42_08 م.png" alt="">
+                <img src="☻ - Brave 28_12_2025 04_42_08 م.png" alt="" data-img="notes">
                 <div class="about">
                     <h2>موقع ملاحظات</h2>
                     <p>موقع ملاحظات بسيط جدا يمكنك من خلاله كتابة ملاحظاتك وحفظها في المتصفح بدون الحاجة الى تسجيل دخول
@@ -211,8 +213,8 @@
                     </p>
                 </div>
             </div>
-            <div class="project" data-animate="right"> 
-                <img src="اكاديمية مستر احا - Brave 28_12_2025 04_54_01 م.png" alt="">
+            <div class="project" data-animate="right">
+                <img src="منصة تعليمية - Brave 01_03_2026 10_59_34 م.png" alt="" data-img="edu">
                 <div class="about">
                     <h2>موقع اكاديمية</h2>
                     <p>موقع أكاديمية هو موقع تعليمي بسيط جدا يمكنك من خلاله تعلم مجموعة من الدورات ويستعرض معلومات عن
@@ -227,38 +229,148 @@
     </section>
     <section id="contact">
         <h1>التواصل</h1>
-        <form onsubmit="" data-animate="left">
-            <input type="text" placeholder="الاسم">
-            <input type="email" placeholder="البريد الالكتروني">
-            <textarea placeholder="رسالتك"></textarea>
-            <button>ارسال</button>
+        <form id="contact-form" data-animate="left">
+            <input type="text" id="name" name="user_name" placeholder="الاسم" required>
+            <input type="email" id="email" name="user_email" placeholder="البريد الالكتروني" required>
+            <textarea id="message" name="message" placeholder="رسالتك" required></textarea>
+            <button type="submit">ارسال</button>
             <h4>او التواصل عبر</h4>
             <div class="social">
-                <a href=""><i class="fab fa-facebook"></i></a>
-                <a href=""><i class="fab fa-github"></i></a>
-                <a href=""><i class="fab fa-whatsapp"></i></a>
-                <a href=""><i class="fab fa-instagram"></i></a>
+                <a href="https://wa.me/201004261178?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85"
+                    target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://github.com/hossam2345" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://web.facebook.com/hossam.elghandour.781988/directory_links" target="_blank"><i
+                        class="fab fa-whatsapp"></i></a>
+                <a href="https://www.instagram.com/xx_elghandour_xx123" target="_blank"><i
+                        class="fab fa-instagram"></i></a>
             </div>
         </form>
     </section>
     <footer>© 2025 المطور حسام كرم</footer>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
 
     <script>
-        function scr() {
-            if (window.innerWidth > 800) {
-                return 100
+        // EmailJS initialization (replace with your real public key)
+        emailjs.init({
+            publicKey: "YojJmybVNiyhyejyv",
+        });
+
+        window.addEventListener("resize", () => {
+            if (window.innerWidth < 580) {
+                nav.classList.add("list")
+                nav.classList.remove('open')
+                openL.style.display = "inline"
             } else {
-                return 40
+                nav.classList.remove("list", "open")
+                openL.style.display = "none"
             }
+        })
+        window.onload = () => {
+            if (window.innerWidth < 580) {
+                nav.classList.add("list")
+                nav.classList.remove('open')
+                openL.style.display = "inline"
+            } else {
+                nav.classList.remove("list", "open")
+                openL.style.display = "none"
+            }
+            scroll({
+                top: 0,
+                behavior: "smooth",
+            });
+
+            // EmailJS contact form handling
+            const contactForm = document.getElementById("contact-form");
+            if (contactForm) {
+                contactForm.addEventListener("submit", function (e) {
+                    e.preventDefault();
+
+                    const name = document.getElementById("name").value.trim();
+                    const email = document.getElementById("email").value.trim();
+                    const message = document.getElementById("message").value.trim();
+
+                    if (!name || !email || !message) {
+                        alert("من فضلك املأ جميع الحقول قبل الإرسال.");
+                        return;
+                    }
+
+                    // Replace these with your real EmailJS service ID and template ID
+                    const serviceID = "service_wo60fqy";
+                    const templateID = "template_zmqlkrn";
+
+                    emailjs
+                        .send(serviceID, templateID, {
+                            user_name: name,
+                            user_email: email,
+                            message: message,
+                        })
+                        .then(() => {
+                            alert("تم إرسال رسالتك بنجاح ✅");
+                            contactForm.reset();
+                        })
+                        .catch((error) => {
+                            console.error("EmailJS error:", error);
+                            alert("حدث خطأ أثناء الإرسال، حاول مرة أخرى لاحقًا.");
+                        });
+                });
+            }
+        };
+        const projects = {
+            quest:"questions(2)/index.html",
+            memory:"memory game/kui.html",
+            edu:"educational platform/index.html",
+            notes:"notes/notes.html"
         }
+        function openProject(img) {
+
+            const a = document.createElement("a")
+            a.href = projects[img]
+            a.target = "_blank"
+            a.click()
+            document.body.appendChild(a)
+            a.remove()
+        }
+        document.querySelectorAll("[data-img]").forEach(img=>{
+            img.addEventListener("click",(e)=>{
+                openProject(e.target.getAttribute("data-img"))
+            })
+        })
+        const nav = document.querySelector("nav")
+        const openL = document.getElementById("openList")
+        function openList() {
+            // toggle an explicit "open" state instead of changing inline styles
+            nav.classList.toggle('open')
+        }
+        // دالة فتح وإغلاق القائمة
+        function openList() {
+            nav.classList.toggle('open');
+        }
+
+        // 1. إغلاق القائمة عند النقر على أي رابط (أو زر) بداخلها
+        nav.addEventListener("click", (e) => {
+            // إذا كان العنصر الذي تم النقر عليه هو رابط (A) أو زر (BUTTON)
+            if (e.target.tagName === "A" || e.target.tagName === "BUTTON") {
+                nav.classList.remove("open");
+            }
+        });
+
+        // 2. إغلاق القائمة عند النقر في أي مكان خارجها
+        document.addEventListener("click", (e) => {
+            // نتحقق إذا كانت القائمة مفتوحة، وإذا كان النقرة خارج القائمة وخارج زر الفتح
+            if (nav.classList.contains("open") &&
+                !nav.contains(e.target) &&
+                !openL.contains(e.target)) {
+                nav.classList.remove("open");
+            }
+        });
         tsParticles.load("tsparticles", {
             background: {
                 color: "transparent"
             },
             particles: {
                 number: {
-                    value: scr()
+                    value: window.innerWidth > 800 ? 100 : 40
                 },
                 color: {
                     value: "#8B8B8B"
@@ -286,7 +398,7 @@
                 },
                 modes: {
                     repulse: {
-                        distance: 100,   // قلل الرقم ده (افتراضي بيكون كبير)
+                        distance: 100,
                         duration: 0.4
                     }
                 }
@@ -294,7 +406,7 @@
         });
 
         // Intersection Observer - play animations only when elements are in view
-        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.4 };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('observed');
@@ -302,7 +414,6 @@
         }, observerOptions);
         document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
     </script>
-
 </body>
 
 </html>
